@@ -13,8 +13,7 @@ public class TemplateResource {
 
 	@GetMapping("/healtcheck")
 	public String templateHealtCheck() {
-		TemplateDTO template = new TemplateDTO();
-		template.setIsActive(true);
+		TemplateDTO template = TemplateDTO.builder().isActive(true).build();
 		return Json.pretty(template);
 	}
 }
