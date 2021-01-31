@@ -35,7 +35,7 @@ class PlanetaTests {
 
 	@Test
 	void endPoint() {
-		var body = this.restTemplate.getForObject("/planetas", String.class);
+		String body = this.restTemplate.getForObject("/planetas", String.class);
 		assertThat(body).contains("Tatooine");
 	}
 

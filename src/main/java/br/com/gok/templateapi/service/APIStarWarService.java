@@ -23,7 +23,7 @@ public class APIStarWarService {
 	}
 
 	private FilmeDTO[] getFilmes() throws JsonProcessingException {
-		var jsonFilms = this.restTemplate.getForObject("http://swapi.dev/api/films/", String.class);
+		String jsonFilms = this.restTemplate.getForObject("http://swapi.dev/api/films/", String.class);
 		FilmeDTO[] filmes = null;
 		do {
 			JsonNode filmsRootNode = new ObjectMapper().readTree(jsonFilms);
@@ -44,7 +44,7 @@ public class APIStarWarService {
 	private PlanetaDTO[] getPlanetas(FilmeDTO[] filmes) throws JsonProcessingException {
 		PlanetaDTO[] planetas = null;
 		int idxPlaneta = 0;
-		var jsonPlanets = this.restTemplate.getForObject("http://swapi.dev/api/planets/", String.class);
+		String jsonPlanets = this.restTemplate.getForObject("http://swapi.dev/api/planets/", String.class);
 		do {
 			JsonNode planetsRootNode = new ObjectMapper().readTree(jsonPlanets);
 			if (planetas == null) {
@@ -61,7 +61,7 @@ public class APIStarWarService {
 				planeta.setFilmes(new FilmeDTO[filmsLinkNode.size()]);
 				int j = 0;
 				for (JsonNode filmNode : filmsLinkNode) {
-					var jsonFilm = this.restTemplate.getForObject(filmNode.asText(), String.class);
+					String jsonFilm = this.restTemplate.getForObject(filmNode.asText(), String.class);
 					JsonNode filmRootNode = new ObjectMapper().readTree(jsonFilm);
 					int idxFilme = filmRootNode.path("episode_id").asInt() - 1;
 					planeta.getFilmes()[j++] = filmes[idxFilme];
